@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
     var intervalID;
-    var questionNumber;
+    var questionNumber = -1;
     var timer = 10;
 
     var questionArray = 
@@ -30,12 +30,37 @@ $(document).ready(function()
             question: "What is Kramer's first name?",
             options: ["Larry", "David", "Ezekiel", "Ringo", "Cosmo"],
             answer: "Cosmo"
+        },
+        {
+            question: "Where do Jerry's parents live?",
+            options: ["Florida", "California", "New York", "Texas", "Virginia"],
+            answer: "Florida"
+        },
+        {
+            question: "What's is George's ATM card password?",
+            options: ["Rizzuto", "Frogger", "Bosco", "Susan", "Yankees"],
+            answer: "Bosco"
+        },
+        {
+            question: "What is Elaine's Father's occupation?",
+            options: ["Football Coach", "Real Estate Agent", "Author", "Teacher", "Unknown"],
+            answer: "Author"
+        },
+        {
+            question: "What famous sitcom did Kramer appear in?",
+            options: ["Murphy Brown", "Cheers", "The Fresh Prince of Bel-Air", "Roseanne", "Full House"],
+            answer: "Murphy Brown"
         }
     ];
 
     function newQuestion()
     {   
-        questionNumber = Math.floor(Math.random() * questionArray.length);
+        questionNumber++;
+        
+        if((questionNumber + 1) > questionArray.length)
+        {
+            alert("That's all the questions for now.  Thanks for playing!");
+        }
 
         timer = 10;
     
@@ -48,7 +73,7 @@ $(document).ready(function()
         for(var i = 0; i < 5; i++)
         {
             var newP = $("<p>");
-    
+            
             newP.text(questionArray[questionNumber].options[i]);
     
             $(".answer").append(newP);
@@ -77,7 +102,6 @@ $(document).ready(function()
                 alert("Time's Up! " + 'The correct answer is "' + questionArray[questionNumber].answer + '" Click OK for next question.');
                 newQuestion();
                 checkAnswer();
-                //questionArray.splice(questionNumber, 1);
             },250);
             
         }
@@ -93,7 +117,6 @@ $(document).ready(function()
                 alert('Correct! Click "OK" for next question.');
                 newQuestion();
                 checkAnswer();
-                //questionArray.splice(questionNumber, 1);
             },250);
         });
     
@@ -103,11 +126,11 @@ $(document).ready(function()
                 alert("Incorrect. " + 'The correct answer is "' + questionArray[questionNumber].answer + '" Click OK for next question.');
                 newQuestion();
                 checkAnswer();
-                //questionArray.splice(questionNumber, 1);
             },250);
         });
     }
     
+    alert("Welcome to Seinfeld Trivia! Click OK to get started!");
     newQuestion();  
     checkAnswer();    
 });
